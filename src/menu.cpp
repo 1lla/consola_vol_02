@@ -1,17 +1,28 @@
 #include "../include/menu.h"
+#include "../include/juego.h"
 
 #include <iostream>
-#include <cstdio>
+
 #include <string>
 
 // AQUI TODOS LAS IMPLIMENTACIONES
+/*Padre hangmann("Hangmann");
+Padre chinos("Chinos");
+Padre chinchan("Chin chan poe");*/
+
+
+Hangmann hangmann;
+
+////////////////////////////////
+
 void inicio_menu(){
+
         char seleccion;
 
         titulo("MATA TIEMPOS");
         std::cout   << "\n\nHola! Así que quieres jugar una partida rapida."
                     << "\nTenemos para ti los siguentes juegos:\n\n"
-                    << "\t [1] Juego Uno\n"
+                    << "\t [1] Hangman\n"
                     << "\t [2] Juego dos\n"
                     << "\t [3] Juego tres\n"
                     << "\t [0] Salir\n" << std::endl;
@@ -54,15 +65,29 @@ void lineaVacia(int l){              // para el titulo y subtitulo
         std::cout << "*";
 };
 
+//////////////// call game //////////////////
+
 
 int callGame(char s){
+
     switch(s){
         case '0':
             std::cout << "\nHasta la vista, Babie!" << std::endl;
             return 0;
-        case '1': std::cout << "Escogiste: " << s << std::endl; break;
-        case '2': std::cout << "Escogiste: " << s << std::endl; break;
-        case '3': std::cout << "Escogiste: " << s << std::endl; break;
+        case '1':
+            hangmann.play();break;
+
+        case '2':
+           // chinos.play();
+           break;
+
+        case '3':
+           // chinchan.play();
+           break;
+
     }
+    return s;
 };
+
+
 

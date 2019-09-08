@@ -1,4 +1,4 @@
-#ifndef _menu_ // si esto esta definido, hazlo, si no , no
+#ifndef _menu_
 #define _menu_
 
 
