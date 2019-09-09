@@ -12,6 +12,7 @@ Padre chinchan("Chin chan poe");*/
 
 
 Hangmann hangmann;
+Chinos chinos;
 
 ////////////////////////////////
 
@@ -23,7 +24,7 @@ void inicio_menu(){
         std::cout   << "\n\nHola! Así que quieres jugar una partida rapida."
                     << "\nTenemos para ti los siguentes juegos:\n\n"
                     << "\t [1] Hangman\n"
-                    << "\t [2] Juego dos\n"
+                    << "\t [2] Juego de los Chinos\n"
                     << "\t [3] Juego tres\n"
                     << "\t [0] Salir\n" << std::endl;
 
@@ -78,8 +79,7 @@ int callGame(char s){
             hangmann.play();break;
 
         case '2':
-           // chinos.play();
-           break;
+            chinos.play(); break;
 
         case '3':
            // chinchan.play();

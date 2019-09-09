@@ -11,6 +11,8 @@ class Padre{
     protected:
         std::string instruciones;
         std::string tituloGame;
+        void gameoverText();
+        int lifes;
 
     public:
         Padre(const std::string& titulo);
@@ -38,6 +40,30 @@ class Hangmann : public Padre{
         char getUserW();
         Hangmann();
         void play();
+};
+
+class Chinos : public Padre{
+    private:
+    protected:
+        char userC;
+        char userT;
+
+        int person1;
+        int person2;
+        int sum;
+
+
+
+    public:
+        Chinos();
+        void play();
+        void compara(char us, int su);
+
+
+        int getNum();
+        void youLose();
+        void youWin();
+
 };
 
 
