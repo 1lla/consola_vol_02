@@ -1,14 +1,5 @@
 #include <iostream>
-#include <string>
-#include <time.h>
-#include <cstdio>
-#include <cstdlib>                   //for srand() rand()
-#include <vector>
-
-
-
-#include "../include/juego.h"
-#include "../include/fx_hangmann.h"
+#include "juego.h"
 
 
 Padre::Padre(const std::string& titulo){
@@ -16,6 +7,7 @@ Padre::Padre(const std::string& titulo){
     }
 
 Padre::~Padre(){}
+
 
 void Padre::gameoverText(){
     std::cout << "\n\n    d888b   .d8b.  .88b  d88. d88888b       .d88b.  db    db d88888b d8888b. " << std::endl;
@@ -27,251 +19,29 @@ void Padre::gameoverText(){
     std::cout << "\n" << std::endl;
 }
 
-
-////////// Chin Cham Pu ///////////
-////////// Chin Cham Pu ///////////
-////////// Chin Cham Pu ///////////
-
-Chinchan::Chinchan()
-    : Padre("Chin Chan Pu"){
-        instruciones = "Estos son las instruciones para chinchan pu";
-        lifes = 1;
-    }
-
-
-void Chinchan::play(){
-
-        std::string userMovName;
-        std::string robotMovName;
-
-        std::cout   << "\n\n\t" << tituloGame << "\n\n"
-                    << instruciones << "\n" << std::endl;
-        std::cout   << "\t[ 1 ] Piedra" << std::endl;
-        std::cout   << "\t[ 2 ] Papel" << std::endl;
-        std::cout   << "\t[ 3 ] Tijeras" << std::endl;
-        std::cout   << "\tEscoge una opcion: ";
-        std::cin    >> usop;
-        Cmov = getCmov();       //obtiene el movimieneto del robot
-        // solo miestra los datos
-        userMovName = nombra(usop - '0');
-        robotMovName = nombra(Cmov);
-
-        std::cout   << "\t" << userMovName << "  VS  " << robotMovName << std::endl;
-        switch ( compara(usop, Cmov) ){
-
-            case 0: std::cout << "\n\t pierdes"; break;
-            case 1: std::cout << "\n\t Ganas"; break;
-            case 2: std::cout << "\n\t Empate"; break;
-        }
-}
-
-int Chinchan::getCmov(){
-        srand(time(0));
-        int noRand = rand()%2;
-        return noRand + 1;
-}
-
-int Chinchan::compara( char u, int c){
-    switch ( u - '0' ){
-    case 1:     //piedra
-        switch ( c ){
-            case 1: return 2; break;    // 2 de empate
-            case 2: return 0; break;    // 0 de pierde
-            case 3: return 1; break;    // 1 de Gana
-        }break;
-
-    case 2:     //papel
-        switch ( c ){
-            case 1: return 1; break;
-            case 2: return 2; break;
-            case 3: return 0; break;
-        }break;
-    case 3:
-        switch ( c ){
-            case 1: return 0; break;
-            case 2: return 1; break;
-            case 3: return 2; break;
-        }break;
-    }
-
-}
-
-std::string Chinchan::nombra( int v){
-    std::string name;
-    switch( v ){
-        case 1 : name = "Piedra";   break;
-        case 2 : name = "Papel";    break;
-        case 3 : name = "tijeras";  break;
-    }
-    return name;
-}
-
-
-//////////// CHINOS //////////////////
-//////////// CHINOS //////////////////
-//////////// CHINOS //////////////////
-
-Chinos::Chinos()
-    : Padre("Juego de los Chinos"){
-        instruciones = "Tu y dos amigos Paco y Pablo, tienen 3 canicas cada uno\n Todos ponen en un saca de 0 a 3 canicas\nGanas si adivinas cuantas canicas hay en el saco";
-        lifes = 1;
-
-    }
-
-
-
-
-void Chinos::play(){
-    srand(time(0));
-    std::cout   << "\n\n\t" << tituloGame << "\n\n"
-                << instruciones << "\n"
-                << std::endl;
-
-    std::cout   << "Ahora, dime: Cuantas canicas sacaste?: ";
-    std::cin    >> userC;
-
-
-    std::cout   << "\nSabes, Cuantas canicas crees que son?: ";
-    std::cin    >> userT;
-
-// con vertir respuestas a int
-    person1 = getNum();
-    person2 = getNum();
-    sum = person1 + person2 + (userC - '0');
-
-    std::cout   << "\nPablo puso\t" << person1
-                << "\ny Paco puso\t" << person2
-                << "\n\nEn el saco hay: " << sum
-                << std::endl;
-
-    compara(userT, sum);
-
-}
-
-void Chinos::youWin(){
-    std::cout << "felicidades" << std::endl;
-}
-
-void Chinos::youLose(){
-    gameoverText();
-}
-
-// nejorar
-int Chinos::getNum(){
-        int noRand = rand()%3;
-        return noRand;
-}
-
- void Chinos::compara(char us, int su){
-    if ( (us - '0') == su ){
-        youWin();
-    }else{
-        youLose();
-    }
- }
-
-
-
-///////////////////////////////////////////
-////// info von hangmann //
-////// info von hangmann //
-////// info von hangmann //
-
-std::string allWords[13]= {"mentira", "escribir", "elefante", "reingresar", "cerebro", "escrito", "implementacion", "imagen", "resferiado", "helaedo", "egoistas", "cafe", "necesitar" };
-
-Hangmann::Hangmann()
-  : Padre("Hangmann" ){
-        instruciones = "\n\tEste es el juego de Ahorcado de toda la vida\n\tTienes que adivinar una palabra apartir de letras.\n\tTienes 5 oportunidades para adivinar";
-        lifes = 5;
-
-  }
-
-void Hangmann::play()
-{
-    bool have_i_won = game();
-    if (true == have_i_won) {
-        youWin();
-    } else {
-        youLose();
-    }
-}
-
-
-bool Hangmann::game(){
-    word = getWort();
-    amorfa = createAmorfa(word);
-
-    std::cout   << "\n\n\t" << tituloGame << "\n\n"
-                << instruciones << "\n"
-                << std::endl;
-
-    std::cout   << "\nTu palabra tiene " << word.length()
-                << " letras." << std::endl;
-    std::cout   << "\n\t" << amorfa << std::endl;
-
-
-    while ( lifes > 0 ){ // Primero, se puede jugar, hay vidas?
-        std::cout << "\nAun tienes " << lifes << " vidas. Tecla una letra para iniciar: ";
-        char wortU = getUserW();                                                             // User tipp die erste buchstabe
-        int  contador = 0;                                                                      // inicia contador
-
-        for(size_t i = 0; i < word.length(); i++){                                         // por cada letra de la palabra haz:{
-            char wortNturno = word[i];                                              // wortNturno letra en turno
-            if ( wortNturno == wortU ){                                              // si en la letra en turno es igual a la latra del usuario
-                amorfa[i] = wortNturno;                                             // dibuja en amorfa la letra adivinada
-                contador++;                                                         // suma un valor x cada letra adivinada aunque se la misma
-                std::cout << "\nMuy bien, sigue adelante\n"<< std::endl;                //. Esto ayuda a no quitar vidas si alguien preciona dos veces sin querer la misma letra
-                std::cout << "\n\t" << amorfa << std::endl;
-
-                if ( amorfa == word ){  return true; }
-
-            }
-        }
-
-        if( contador <= 0 ){                                                             // si contador se queda igual haz
-            std::cout << "\nnope. Try again\n"<< std::endl;                     // limpia todo, muestra el inicio
-            std::cout << "\n     " << amorfa << std::endl;                      // MUESTRA EL ESTADO ACTUAL DE AMORFA
-            lifes --;                                                           //quita una vida
-        }
-    }
-                                                                        // si ya no hay vidas, pierdes
-    return false;
-}
-
-
-
-std::string Hangmann::getWort(){
-    srand(time(0));
-    int noRand = rand() % (sizeof(allWords) / sizeof(allWords[1]));  //rando()%5 donde 5 es el valor maximo
-    return allWords[noRand];
-}
-
-
-std::string Hangmann::createAmorfa(std::string xx){       //en los parentices es la informacion que entre
-    std::string a(xx.length(), '-');                 //creas a y le pones una linea por cada uno de sus largos
-    return a;                                   //regresa valor de a
-}
-
-
-char Hangmann::getUserW(){
-    char a;
-    std::cin >> a;
-    return a;
-}
-
-
-void Hangmann::youLose(){
-    gameoverText();
-    std::cout << "\nPss. La palabra original es : " << word << std::endl;
-    std::cout << "\nPero tu solo tenias esto    : " << amorfa << std::endl;
-
-}
-
-void Hangmann::youWin(){
-    std::cout << "Felicidades, ganaste!\n\n" << std::endl;
+void Padre::youwinText(){
+    std::cout << "\n\tFelicidades, ganaste!\n\n" << std::endl;
     std::cout << "Yb  dP  dP\"Yb   88°88     Yb        dP 88 88b 88 " << std::endl;
     std::cout << " YbdP  dP   Yb 88   88      Yb  db  dP  88 88Yb88 " << std::endl;
     std::cout << "  8P   Yb   dP Y8   8P       YbdPYbdP   88 88 Y88 " << std::endl;
     std::cout << " dP     YbodP  `YbodP'        YP  YP    88 88  Y8 " << std::endl;
-
 }
+
+
+int Padre::getInt(){
+    char vchar;
+    std::cin >>  vchar;
+    return vchar - '0';
+}
+
+int Padre::validacion( int entra, int maximo){
+    while ( entra > maximo ){
+        std::cout << "\n\tCreo que te has equivocado,\n\ttrátalo otra vez: ";
+        entra = getInt();
+    }
+    return entra;
+}
+
+
+
+

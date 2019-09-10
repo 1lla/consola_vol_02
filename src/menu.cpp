@@ -25,11 +25,9 @@ void inicio_menu(){
         std::cout   << "\n\nHola! Así que quieres jugar una partida rapida."
                     << "\nTenemos para ti los siguentes juegos:\n\n"
                     << "\t [1] Hangman\n"
-                    << "\t [2] Juego de los Chinos\n"
-                    << "\t [3] Juego tres\n"
-                    << "\t [0] Salir\n" << std::endl;
-
-
+                    << "\t [2] Los Chinos\n"
+                    << "\t [3] Chin Chan Pu\n"
+                    << "\n\t [0] Salir\n" << std::endl;
         std::cout   << "Por favor selecciona una opcion para continuar: ";
         std::cin    >> seleccion;
         callGame(seleccion);

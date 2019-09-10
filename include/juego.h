@@ -11,8 +11,13 @@ class Padre{
     protected:
         std::string instruciones;
         std::string tituloGame;
-        void gameoverText();
         int lifes;
+
+        void gameoverText();
+        void youwinText();
+        int getInt();
+        int validacion( int entra, int maximo);
+
 
     public:
         Padre(const std::string& titulo);
@@ -25,14 +30,12 @@ class Padre{
 
 class Chinchan : public Padre{
     private:
-        char usop;
-        int Cmov;
+        int getUsermov();
         int getCmov();
         int compara( char u, int c);
         std::string nombra( int v);
         void youLose();
         void youWin();
-
     public:
         Chinchan();
         void play();
@@ -58,9 +61,6 @@ class Hangmann : public Padre{
 class Chinos : public Padre{
     private:
     protected:
-        char userC;
-        char userT;
-
         int person1;
         int person2;
         int sum;

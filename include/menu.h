@@ -9,7 +9,12 @@ void titulo(std::string texto);
 void linea(int l);
 void lineaVacia(int l);
 
-int callGame(char s);;
+int callGame(char s);
+
+
+int getInt();
+
+int validacion( int entra, int maximo);
 
 
 #endif
