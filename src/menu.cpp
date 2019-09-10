@@ -13,6 +13,7 @@ Padre chinchan("Chin chan poe");*/
 
 Hangmann hangmann;
 Chinos chinos;
+Chinchan chinchan;
 
 ////////////////////////////////
 
@@ -82,7 +83,7 @@ int callGame(char s){
             chinos.play(); break;
 
         case '3':
-           // chinchan.play();
+           chinchan.play();
            break;
 
     }

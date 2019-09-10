@@ -23,6 +23,20 @@ class Padre{
 
 };
 
+class Chinchan : public Padre{
+    private:
+        char usop;
+        int Cmov;
+        int getCmov();
+        int compara( char u, int c);
+        std::string nombra( int v);
+        void youLose();
+        void youWin();
+
+    public:
+        Chinchan();
+        void play();
+};
 
 class Hangmann : public Padre{
     private:
@@ -32,7 +46,6 @@ class Hangmann : public Padre{
         void youLose();
         void youWin();
 
-    protected:
     public:
 
         std::string word;
@@ -52,14 +65,10 @@ class Chinos : public Padre{
         int person2;
         int sum;
 
-
-
     public:
         Chinos();
         void play();
         void compara(char us, int su);
-
-
         int getNum();
         void youLose();
         void youWin();

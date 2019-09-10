@@ -15,9 +15,7 @@ Padre::Padre(const std::string& titulo){
     tituloGame = titulo;
     }
 
-Padre::~Padre(){
-    std::cout << "Se destruyO Juego_Padre" << std::endl;
-    }
+Padre::~Padre(){}
 
 void Padre::gameoverText(){
     std::cout << "\n\n    d888b   .d8b.  .88b  d88. d88888b       .d88b.  db    db d88888b d8888b. " << std::endl;
@@ -30,8 +28,88 @@ void Padre::gameoverText(){
 }
 
 
+////////// Chin Cham Pu ///////////
+////////// Chin Cham Pu ///////////
+////////// Chin Cham Pu ///////////
 
-// CHINOS //////////////////
+Chinchan::Chinchan()
+    : Padre("Chin Chan Pu"){
+        instruciones = "Estos son las instruciones para chinchan pu";
+        lifes = 1;
+    }
+
+
+void Chinchan::play(){
+
+        std::string userMovName;
+        std::string robotMovName;
+
+        std::cout   << "\n\n\t" << tituloGame << "\n\n"
+                    << instruciones << "\n" << std::endl;
+        std::cout   << "\t[ 1 ] Piedra" << std::endl;
+        std::cout   << "\t[ 2 ] Papel" << std::endl;
+        std::cout   << "\t[ 3 ] Tijeras" << std::endl;
+        std::cout   << "\tEscoge una opcion: ";
+        std::cin    >> usop;
+        Cmov = getCmov();       //obtiene el movimieneto del robot
+        // solo miestra los datos
+        userMovName = nombra(usop - '0');
+        robotMovName = nombra(Cmov);
+
+        std::cout   << "\t" << userMovName << "  VS  " << robotMovName << std::endl;
+        switch ( compara(usop, Cmov) ){
+
+            case 0: std::cout << "\n\t pierdes"; break;
+            case 1: std::cout << "\n\t Ganas"; break;
+            case 2: std::cout << "\n\t Empate"; break;
+        }
+}
+
+int Chinchan::getCmov(){
+        srand(time(0));
+        int noRand = rand()%2;
+        return noRand + 1;
+}
+
+int Chinchan::compara( char u, int c){
+    switch ( u - '0' ){
+    case 1:     //piedra
+        switch ( c ){
+            case 1: return 2; break;    // 2 de empate
+            case 2: return 0; break;    // 0 de pierde
+            case 3: return 1; break;    // 1 de Gana
+        }break;
+
+    case 2:     //papel
+        switch ( c ){
+            case 1: return 1; break;
+            case 2: return 2; break;
+            case 3: return 0; break;
+        }break;
+    case 3:
+        switch ( c ){
+            case 1: return 0; break;
+            case 2: return 1; break;
+            case 3: return 2; break;
+        }break;
+    }
+
+}
+
+std::string Chinchan::nombra( int v){
+    std::string name;
+    switch( v ){
+        case 1 : name = "Piedra";   break;
+        case 2 : name = "Papel";    break;
+        case 3 : name = "tijeras";  break;
+    }
+    return name;
+}
+
+
+//////////// CHINOS //////////////////
+//////////// CHINOS //////////////////
+//////////// CHINOS //////////////////
 
 Chinos::Chinos()
     : Padre("Juego de los Chinos"){
@@ -44,10 +122,7 @@ Chinos::Chinos()
 
 
 void Chinos::play(){
-     srand(time(0));
-
-
-
+    srand(time(0));
     std::cout   << "\n\n\t" << tituloGame << "\n\n"
                 << instruciones << "\n"
                 << std::endl;
@@ -81,9 +156,10 @@ void Chinos::youLose(){
     gameoverText();
 }
 
+// nejorar
 int Chinos::getNum(){
-    int noRand = rand() %3;
-    return noRand;
+        int noRand = rand()%3;
+        return noRand;
 }
 
  void Chinos::compara(char us, int su){
@@ -97,6 +173,8 @@ int Chinos::getNum(){
 
 
 ///////////////////////////////////////////
+////// info von hangmann //
+////// info von hangmann //
 ////// info von hangmann //
 
 std::string allWords[13]= {"mentira", "escribir", "elefante", "reingresar", "cerebro", "escrito", "implementacion", "imagen", "resferiado", "helaedo", "egoistas", "cafe", "necesitar" };
@@ -120,13 +198,10 @@ void Hangmann::play()
 
 
 bool Hangmann::game(){
-
-
-
     word = getWort();
     amorfa = createAmorfa(word);
 
-   std::cout   << "\n\n\t" << tituloGame << "\n\n"
+    std::cout   << "\n\n\t" << tituloGame << "\n\n"
                 << instruciones << "\n"
                 << std::endl;
 
@@ -135,50 +210,32 @@ bool Hangmann::game(){
     std::cout   << "\n\t" << amorfa << std::endl;
 
 
-    while ( lifes > 0 ) // Primero, se puede jugar, hay vidas?
-    {
+    while ( lifes > 0 ){ // Primero, se puede jugar, hay vidas?
         std::cout << "\nAun tienes " << lifes << " vidas. Tecla una letra para iniciar: ";
         char wortU = getUserW();                                                             // User tipp die erste buchstabe
         int  contador = 0;                                                                      // inicia contador
 
-        for(size_t i = 0; i < word.length(); i++)                                         // por cada letra de la palabra haz:
-        {
+        for(size_t i = 0; i < word.length(); i++){                                         // por cada letra de la palabra haz:{
             char wortNturno = word[i];                                              // wortNturno letra en turno
-
-            if ( wortNturno == wortU )                                              // si en la letra en turno es igual a la latra del usuario
-            {
-
+            if ( wortNturno == wortU ){                                              // si en la letra en turno es igual a la latra del usuario
                 amorfa[i] = wortNturno;                                             // dibuja en amorfa la letra adivinada
                 contador++;                                                         // suma un valor x cada letra adivinada aunque se la misma
                 std::cout << "\nMuy bien, sigue adelante\n"<< std::endl;                //. Esto ayuda a no quitar vidas si alguien preciona dos veces sin querer la misma letra
-                std::cout << "\n     " << amorfa << std::endl;
+                std::cout << "\n\t" << amorfa << std::endl;
 
-                if (amorfa == word )                                                // si amorfa tiene todas sus letras
-                {
-                    return true;
-                    //youWin();                                                   // entonces ganas y te sales del juego
-
-                }
+                if ( amorfa == word ){  return true; }
 
             }
         }
-        if( contador <= 0 )                                                             // si contador se queda igual haz
-        {
 
+        if( contador <= 0 ){                                                             // si contador se queda igual haz
             std::cout << "\nnope. Try again\n"<< std::endl;                     // limpia todo, muestra el inicio
             std::cout << "\n     " << amorfa << std::endl;                      // MUESTRA EL ESTADO ACTUAL DE AMORFA
             lifes --;                                                           //quita una vida
         }
-
-
-
     }
-
-                                                                         // si ya no hay vidas, pierdes
+                                                                        // si ya no hay vidas, pierdes
     return false;
-
-
-
 }
 
 
@@ -216,5 +273,5 @@ void Hangmann::youWin(){
     std::cout << " YbdP  dP   Yb 88   88      Yb  db  dP  88 88Yb88 " << std::endl;
     std::cout << "  8P   Yb   dP Y8   8P       YbdPYbdP   88 88 Y88 " << std::endl;
     std::cout << " dP     YbodP  `YbodP'        YP  YP    88 88  Y8 " << std::endl;
-                               // se acabo. salir del juego
+
 }
