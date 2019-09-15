@@ -28,6 +28,7 @@ void Padre::youwinText(){
 }
 
 
+
 int Padre::getInt(){
     char vchar;
     std::cin >>  vchar;
@@ -41,7 +42,5 @@ int Padre::validacion( int entra, int maximo){
     }
     return entra;
 }
-
-
 
 

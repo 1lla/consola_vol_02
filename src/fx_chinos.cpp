@@ -1,6 +1,7 @@
 #include <cstdlib>                   //for srand() rand()
 #include <ctime>
 #include "juego.h"
+#include "menu.h"
 
 Chinos::Chinos()
     : Padre("Juego de los Chinos"){
@@ -16,27 +17,28 @@ void Chinos::play(){
     int userT;
     srand(time(0));
 
-    std::cout   << "\n\n\t" << tituloGame << "\n\n"
-                << instruciones << "\n"
-                << std::endl;
-
-    std::cout   << "Ahora, dime: Cuantas canicas pusiste?: ";
+        subtitulo(tituloGame);
+        std::cout << "\n" << instruciones << "\n" << std::endl;
+    std::cout   << "\n\tAhora, dime:\n\tCuantas canicas pusiste?: ";
     userC = getInt();
-    validacion( userC, 3); // valida la respuesta de user mov, el 3 es el max
+    userC = validacion( userC, 3); // valida la respuesta de user mov, el 3 es el max
 
-
-    std::cout   << "\nSabes, Cuantas canicas crees que hay?: ";
+    system("cls");
+            titulo("MATA TIEMPOS");
+    std::cout   << "\n\tCuantas canicas crees que hay en total?: ";
     userT = getInt();
-    validacion( userT, 9); // valida la respuesta de user mov, el 9 es el max
+    userT = validacion( userT, 9); // valida la respuesta de user mov, el 9 es el max
 
 // con vertir respuestas a int
     person1 = getNum();
     person2 = getNum();
-    sum = person1 + person2 + userC;
+  //  sum = ;
 
-    std::cout   << "\nPablo puso\t" << person1
-                << "\ny Paco puso\t" << person2
-                << "\n\nEn el saco hay: " << sum
+    std::cout   << "\n\tTu pusiste\t" << userC
+                << "\n\tPablo puso\t" << person1
+                << "\n\ty Paco puso\t" << person2
+                << "\n\n\tEn el saco hay: "
+                << (person1 + person2 + userC)
                 << std::endl;
 
     compara(userT, sum);
@@ -61,6 +63,7 @@ int Chinos::getNum(){
     if ( (us - '0') == su ){
         youWin();
     }else{
+        std::cout   << "\n\tMás suerte para la proxima";
         youLose();
     }
  }

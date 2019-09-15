@@ -1,13 +1,14 @@
 #include <cstdlib>                   //for srand() rand()
 #include <ctime>
 #include "juego.h"
+#include "menu.h"
 
 std::string allWords[13]= {"mentira", "escribir", "elefante", "reingresar", "cerebro", "escrito", "implementacion", "imagen", "resferiado", "helaedo", "egoistas", "cafe", "necesitar" };
 
 Hangmann::Hangmann()
   : Padre("Hangmann" ){
         instruciones = "\n\tEste es el juego de Ahorcado de toda la vida\n\tTienes que adivinar una palabra apartir de letras.\n\tTienes 5 oportunidades para adivinar";
-        lifes = 5;
+
 
   }
 
@@ -24,19 +25,19 @@ void Hangmann::play()
 
 bool Hangmann::game(){
     word = getWort();
+    lifes = 5;
     amorfa = createAmorfa(word);
 
-    std::cout   << "\n\n\t" << tituloGame << "\n\n"
-                << instruciones << "\n"
-                << std::endl;
-
-    std::cout   << "\nTu palabra tiene " << word.length()
+        subtitulo(tituloGame);
+        std::cout << "\n" << instruciones << "\n" << std::endl;
+    std::cout   << "\n\tTu palabra tiene " << word.length()
                 << " letras." << std::endl;
     std::cout   << "\n\t" << amorfa << std::endl;
 
 
     while ( lifes > 0 ){ // Primero, se puede jugar, hay vidas?
-        std::cout << "\nAun tienes " << lifes << " vidas. Tecla una letra para iniciar: ";
+        std::cout   << "\n\tAun tienes " << lifes << " vidas." << std::endl;
+        std::cout   << "\n\tQue letra escojes? ";
         char wortU = getUserW();                                                             // User tipp die erste buchstabe
         int  contador = 0;                                                                      // inicia contador
 
@@ -45,7 +46,9 @@ bool Hangmann::game(){
             if ( wortNturno == wortU ){                                              // si en la letra en turno es igual a la latra del usuario
                 amorfa[i] = wortNturno;                                             // dibuja en amorfa la letra adivinada
                 contador++;                                                         // suma un valor x cada letra adivinada aunque se la misma
-                std::cout << "\nMuy bien, sigue adelante\n"<< std::endl;                //. Esto ayuda a no quitar vidas si alguien preciona dos veces sin querer la misma letra
+                system("cls");
+                subtitulo(tituloGame);
+                std::cout << "\n\n\tMuy bien, sigue adelante\n"<< std::endl;                //. Esto ayuda a no quitar vidas si alguien preciona dos veces sin querer la misma letra
                 std::cout << "\n\t" << amorfa << std::endl;
 
                 if ( amorfa == word ){  return true; }
@@ -54,8 +57,10 @@ bool Hangmann::game(){
         }
 
         if( contador <= 0 ){                                                             // si contador se queda igual haz
-            std::cout << "\nnope. Try again\n"<< std::endl;                     // limpia todo, muestra el inicio
-            std::cout << "\n     " << amorfa << std::endl;                      // MUESTRA EL ESTADO ACTUAL DE AMORFA
+             system("cls");
+             subtitulo(tituloGame);
+            std::cout << "\n\tnope. Try again\n"<< std::endl;                     // limpia todo, muestra el inicio
+            std::cout << "\n\t" << amorfa << std::endl;                      // MUESTRA EL ESTADO ACTUAL DE AMORFA
             lifes --;                                                           //quita una vida
         }
     }
@@ -86,10 +91,10 @@ char Hangmann::getUserW(){
 
 
 void Hangmann::youLose(){
+    system("cls");
     gameoverText();
-    std::cout << "\nPss. La palabra original es : " << word << std::endl;
-    std::cout << "\nPero tu solo tenias esto    : " << amorfa << std::endl;
-
+    std::cout << "\n\tPss. La palabra original es : " << word << std::endl;
+    std::cout << "\n\tPero tu llegaste a esto     : " << amorfa << std::endl;
 }
 
 void Hangmann::youWin(){

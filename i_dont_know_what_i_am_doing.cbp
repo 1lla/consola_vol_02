@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/header.h" />
 		<Unit filename="include/juego.h" />
 		<Unit filename="include/menu.h" />
 		<Unit filename="main.cpp" />

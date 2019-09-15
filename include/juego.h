@@ -13,6 +13,7 @@ class Padre{
         std::string tituloGame;
         int lifes;
 
+
         void gameoverText();
         void youwinText();
         int getInt();

@@ -1,10 +1,9 @@
 #include "include/menu.h"
 #include "include/juego.h"
+#include "include/header.h"
 
 int main()
 {
-
-    inicio_menu();
-
+    inicia_menu_principal();
     return 0;
 }
