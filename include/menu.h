@@ -12,8 +12,14 @@ void linea(int l);
 void lineaVacia(int l);
 
 int callGame(char s);
-int getInt();
+int get_inte();
 int validacion( int entra, int maximo);
-
+void showEsta();
+void makePausa();
+float int_to_x100(int n, int NtX100);
 void backText();
+void goodbyetext();
+
+
+
 #endif

@@ -4,6 +4,9 @@
 
 Padre::Padre(const std::string& titulo){
     tituloGame = titulo;
+    pPerdi = 0;
+    pGanad = 0;
+    pEmpat = 0;
     }
 
 Padre::~Padre(){}
@@ -29,7 +32,7 @@ void Padre::youwinText(){
 
 
 
-int Padre::getInt(){
+int Padre::get_inte(){
     char vchar;
     std::cin >>  vchar;
     return vchar - '0';
@@ -38,9 +41,19 @@ int Padre::getInt(){
 int Padre::validacion( int entra, int maximo){
     while ( entra > maximo ){
         std::cout << "\n\tCreo que te has equivocado,\n\ttrátalo otra vez: ";
-        entra = getInt();
+        entra = get_inte();
     }
     return entra;
 }
 
+int Padre::get_Pperd() {
+    return pPerdi;
+}
 
+int Padre::get_Pgana() const{
+    return pGanad;
+}
+
+int Padre::get_pEmpat() const{
+    return pEmpat;
+}

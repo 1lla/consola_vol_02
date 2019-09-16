@@ -24,8 +24,8 @@ void Chinchan::play(){
         std::cout   << "\t[ 2 ] Papel\t que vence a la piedra envolviéndola y" << std::endl;
         std::cout   << "\t[ 3 ] Tijeras\t que vence al papel cortándolo" << std::endl;
         std::cout   << "\n\tEscoge una opcion: ";
-        userMov = getInt();
-        userMov = validacion( userMov, 3); // valida la respuesta de user mov, el 3 es el max
+        userMov = get_inte();
+        userMov = validacion( userMov, 4); // valida la respuesta de user mov, el 3 es el max
         Cmov = getCmov();       //obtiene el movimieneto del robot
 
         userMovName = nombra(userMov);
@@ -38,9 +38,18 @@ void Chinchan::play(){
                     << std::endl;
         int res = compara(userMov, Cmov);
         switch (res){
-                    case 0: gameoverText(); break;
-                    case 1: youwinText(); break;
-                    case 2: std::cout << "\n\t Empate"; break;
+                    case 0:
+                        pPerdi++;
+                        gameoverText();
+                        break;
+                    case 1:
+                        pGanad++;
+                        youwinText();
+                        break;
+                    case 2:
+                        pEmpat++;
+                        std::cout << "\n\t Empate" << std::endl;
+                        break;
         }
 }
 

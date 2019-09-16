@@ -1,5 +1,6 @@
 #include "../include/menu.h"
 #include "../include/juego.h"
+#include <conio.h>
 
 #include <iostream>
 
@@ -15,26 +16,31 @@ Hangmann hangmann;
 Chinos chinos;
 Chinchan chinchan;
 
+
+ int tHM;
+ int tCH;
+ int tCC;
+ int tTJ;
 ////////////////////////////////
 void inicia_menu_principal(){
-        bool repeat = true;
 
-        while (repeat){
-
+    char answer;
+       do{
             get_menu();
             // stuff to be repeated here
             system("cls");
             titulo("MATA TIEMPOS");
-            std::cout   << "\n\tQuieres jugar otra cosa?\n"
-                        << "\n\tRegresa al menu principal"
+            std::cout   << "\n\tQuieres regresar al menu principal\n"
                         << "\n\tSi, regresar\t[ y ]"
-                        << "\n\n\tCualquier otra tecla"
                         << "\n\t para Salir\t[ x ]"
                         << std::endl;
-            char answer;
+
             std::cin >> answer;
-            repeat = answer == 'y';
+
+
         }
+        while (answer == 'y');
+        goodbyetext();
 }
 
 
@@ -47,14 +53,19 @@ void get_menu(){
 
         std::cout   << "\n\tAsi que quieres jugar una partida rapida."
                     << "\n\tTenemos para ti los siguentes juegos:\n\n"
-                    << "\t [1] Hangman\n"
-                    << "\t [2] Los Chinos\n"
-                    << "\t [3] Chin Chan Pu\n"
+                    << "\t [ 1 ] Hangman\n"
+                    << "\t [ 2 ] Los Chinos\n"
+                    << "\t [ 3 ] Chin Chan Pu\n"
+                    << "\t [ 4 ] Estadisticas\n"
                     << "\n\t Para salir\n"
                     << "\tCualquier otra tecla" << std::endl;
         std::cout   << "\n\tSelecciona una opcion para continuar: ";
         std::cin    >> seleccion;
+
         callGame(seleccion);
+
+
+
 }
 
 ///////// titulo ////////////////
@@ -118,11 +129,11 @@ int callGame(char s){
                     std::cout   << "\n\tPor favor selecciona una opcion para continuar: ";
                     char answer;
                     std::cin >> answer;
-                    repeat = answer == 'y';
-                    answer = 0;
-                }
+                    repeat = answer == 'y' ;
 
-                break;
+                }break;
+
+
             case '2':
                 while (repeat){
                     chinos.play();
@@ -152,18 +163,74 @@ int callGame(char s){
                     repeat = answer == 'y';
                 }
                 break;
+
+            case '4':
+
+                showEsta();
+
+                break;
+
             default:
-                system("cls");
-                titulo("MATA TIEMPOS");
-                std::cout << "\n\tHasta la vista, Babie!" << std::endl;
-                std::cout << "\n\tMade whit <3 in Muenchen" << std::endl;
-                std::cout << "\n\n\t\t2019" << std::endl;
-                std::cout << "\n\tillahacandi.rivera@gmail.com " << std::endl;
-                exit(EXIT_FAILURE); //salir para siempre
+                goodbyetext();
                 break;
         }
     return s;
 };
 
+//////////////////////////// Estadisticas //////////////////////////////////////
+
+void showEsta(){
+
+    tHM = hangmann.get_Pperd() + hangmann.get_Pgana()  + hangmann.get_pEmpat();
+    tCH = chinos.get_Pperd()   + chinos.get_Pgana()    + chinos.get_pEmpat();
+    tCC = chinchan.get_Pperd() + chinchan.get_Pgana()  + chinchan.get_pEmpat();
+    tTJ = tHM + tCC + tCH;
+
+    system("cls");
+    titulo("Estadisticas");
+    std::cout   << "\n\tTotal de partidads jugadas: "
+                << tTJ << std::endl;
+
+    std::cout   << "\n\n\t" << int_to_x100(tHM, tTJ)
+                << "%   Hangmann"
+                << "\n\n\t" << int_to_x100(tCH, tTJ)
+                << "%   Chinos"
+                << "\n\n\t" << int_to_x100(tCC, tTJ)
+                << "%   Chin Chan Pu"
+                << std::endl;
+
+    std::cout   << "\n\t----------------------------------" << "\n\n\t"
+                << hangmann.get_Pgana() + chinos.get_Pgana() + chinchan.get_Pgana()
+                << "   Total de partidas ganadas "
+                << "\n\t" << hangmann.get_Pperd() + chinos.get_Pperd() + chinchan.get_Pperd()
+                << "   Total de partidas perdidas "
+                << std::endl;
+                makePausa();
+}
+
+float int_to_x100(int n, int NtX100){
+    float x100;
+
+    x100 = (n * 100) / NtX100;
+    return x100;
+}
 
 
+void makePausa(){
+    std::string nobody;
+    std::cin >> nobody;
+}
+
+
+/////////////////////////////////////////////////
+
+
+void goodbyetext(){
+        system("cls");
+        titulo("MATA TIEMPOS");
+        std::cout << "\n\tHasta la vista, Babie!" << std::endl;
+        std::cout << "\n\tMade whit <3 in Muenchen" << std::endl;
+        std::cout << "\n\n\t\t2019" << std::endl;
+        std::cout << "\n\tillahacandi.rivera@gmail.com " << std::endl;
+        exit(EXIT_FAILURE); //salir para siempre
+}

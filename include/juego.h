@@ -12,17 +12,25 @@ class Padre{
         std::string instruciones;
         std::string tituloGame;
         int lifes;
+        int pPerdi;
+        int pGanad;
+        int pEmpat;
+
 
 
         void gameoverText();
         void youwinText();
-        int getInt();
+        int get_inte();
         int validacion( int entra, int maximo);
 
 
     public:
         Padre(const std::string& titulo);
         ~Padre();
+
+        int get_Pperd();
+        int get_Pgana() const;
+        int get_pEmpat() const;
 
 
 
@@ -44,13 +52,12 @@ class Chinchan : public Padre{
 
 class Hangmann : public Padre{
     private:
+    public:
         std::string getWort();
         std::string createAmorfa(std::string xx);
         bool game();
         void youLose();
         void youWin();
-
-    public:
 
         std::string word;
         std::string amorfa;
@@ -69,7 +76,7 @@ class Chinos : public Padre{
     public:
         Chinos();
         void play();
-        void compara(char us, int su);
+        void compara(int us, int su);
         int getNum();
         void youLose();
         void youWin();
